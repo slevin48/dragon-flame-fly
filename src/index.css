@@ -2,14 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Cyberpunk Dragon Game Design System - All colors, gradients, fonts, etc defined here. 
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cyberpunk Color Palette */
+    --background: 240 10% 8%;
+    --foreground: 280 100% 90%;
+    
+    /* Neon Colors */
+    --neon-blue: 200 100% 60%;
+    --neon-purple: 280 100% 70%;
+    --neon-pink: 320 100% 75%;
+    --neon-green: 120 100% 60%;
+    --electric-cyan: 180 100% 70%;
+    
+    /* Game Colors */
+    --dragon-primary: 280 100% 70%;
+    --dragon-secondary: 320 100% 75%;
+    --obstacle-color: 200 100% 60%;
+    --score-glow: 120 100% 60%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -17,17 +31,28 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Cyberpunk UI Colors */
+    --primary: 280 100% 70%;
+    --primary-foreground: 240 10% 8%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 200 100% 60%;
+    --secondary-foreground: 240 10% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 240 20% 15%;
+    --muted-foreground: 280 50% 80%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 320 100% 75%;
+    --accent-foreground: 240 10% 8%;
+    
+    /* Cyberpunk Gradients */
+    --gradient-cyberpunk: linear-gradient(135deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)));
+    --gradient-dragon: linear-gradient(135deg, hsl(var(--dragon-primary)), hsl(var(--dragon-secondary)));
+    --gradient-glow: linear-gradient(135deg, hsl(var(--electric-cyan)), hsl(var(--neon-green)));
+    
+    /* Shadows and Effects */
+    --shadow-neon: 0 0 20px hsl(var(--neon-blue) / 0.5);
+    --shadow-dragon: 0 0 30px hsl(var(--dragon-primary) / 0.6);
+    --shadow-intense: 0 0 40px hsl(var(--neon-purple) / 0.8);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -100,6 +125,51 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-hidden;
+    font-family: 'Orbitron', 'Courier New', monospace;
+  }
+}
+
+@layer components {
+  /* Game UI Components */
+  .neon-glow {
+    filter: drop-shadow(var(--shadow-neon));
+  }
+  
+  .dragon-glow {
+    filter: drop-shadow(var(--shadow-dragon));
+  }
+  
+  .cyberpunk-text {
+    background: var(--gradient-cyberpunk);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: var(--shadow-neon);
+  }
+  
+  .game-button {
+    background: var(--gradient-dragon);
+    border: 2px solid hsl(var(--neon-purple));
+    box-shadow: var(--shadow-intense);
+    transition: all 0.3s ease;
+  }
+  
+  .game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-intense), 0 5px 15px hsl(var(--neon-purple) / 0.4);
+  }
+  
+  .pulse-neon {
+    animation: pulse-neon 2s infinite;
+  }
+}
+
+@keyframes pulse-neon {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px hsl(var(--neon-blue) / 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px hsl(var(--neon-blue) / 0.8));
   }
 }
